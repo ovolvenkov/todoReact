@@ -3,23 +3,19 @@ import TodoItem from "./TodoItem"
 import "./TodoList.css";
 
 class Todolist extends Component {
-
     constructor(props) {
         super(props);
 
         this.state = {
-            items: [
-
-            ]
-        }
+            items: []
+        };
 
         this.addItem = this.addItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this)
-        
     }
 
     deleteItem(key) {
-        let itemArray = this.state.items.filter((item)=> item.key !== key);
+        let itemArray = this.state.items.filter((item) => item.key !== key);
 
         this.setState({
             items: itemArray
@@ -39,25 +35,25 @@ class Todolist extends Component {
             });
             this._inputElement.value = "";
         }
-        console.log(itemArray);
+        
         e.preventDefault();
-    
-}
 
-render() {
-    return (
-        <div className="todoListMain">
-            <div className="header">
-                <form onSubmit={this.addItem}>
-                    <input ref={(el) => this._inputElement = el} placeholder="Введите задачу"></input>
-                    <button type="submit">Добавить</button>
-                </form>
+    }
+
+    render() {
+        return (
+            <div className="todoListMain">
+                <div className="header">
+                    <form onSubmit={this.addItem}>
+                        <input ref={(el) => this._inputElement = el} placeholder="Введите задачу"></input>
+                        <button type="submit">Добавить</button>
+                    </form>
+                </div>
+                <TodoItem delete={this.deleteItem} entries={this.state.items} />
             </div>
-            <TodoItem delete = {this.deleteItem} entries={this.state.items}/>
-        </div>
 
-    )
-}
+        )
+    }
 }
 
 export default Todolist;
