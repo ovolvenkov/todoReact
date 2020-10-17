@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import TodoItem from "./TodoItem"
+import "./TodoList.css";
 
 class Todolist extends Component {
 
@@ -11,7 +13,17 @@ class Todolist extends Component {
             ]
         }
 
-        this.addItem = this.addItem.bind(this)
+        this.addItem = this.addItem.bind(this);
+        this.deleteItem = this.deleteItem.bind(this)
+        
+    }
+
+    deleteItem(key) {
+        let itemArray = this.state.items.filter((item)=> item.key !== key);
+
+        this.setState({
+            items: itemArray
+        });
     }
 
     addItem(e) {
@@ -38,9 +50,10 @@ render() {
             <div className="header">
                 <form onSubmit={this.addItem}>
                     <input ref={(el) => this._inputElement = el} placeholder="Введите задачу"></input>
-                    <button type="submit">ok</button>
+                    <button type="submit">Добавить</button>
                 </form>
             </div>
+            <TodoItem delete = {this.deleteItem} entries={this.state.items}/>
         </div>
 
     )
